@@ -161,9 +161,11 @@ class vistaFinacieraDia extends StatelessWidget {
   double calcularSumaTotalDia() {
     double sumaTotal = 0;
     for (var parqueo in parqueos) {
-      var totalpagar = double.parse(parqueo['totalpagar']);
+      if (parqueo['totalpagar'] != "") {
+        var totalpagar = double.parse(parqueo['totalpagar']);
 
-      sumaTotal = sumaTotal + totalpagar;
+        sumaTotal = sumaTotal + totalpagar;
+      }
     }
     return sumaTotal;
   }
