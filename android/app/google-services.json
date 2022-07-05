@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185304527173",
+    "project_id": "best-parking-app",
+    "storage_bucket": "best-parking-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185304527173:android:10c564e51e8037945c0e2c",
+        "android_client_info": {
+          "package_name": "com.movilhscorrea.best_parking_app_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185304527173-lf78v593tk7kavdmq6asqj5i36f2ucd8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5WVuTUSRhaU_uKn8njlzSGhNeYmTZilE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185304527173-lf78v593tk7kavdmq6asqj5i36f2ucd8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
