@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../peticiones/peticionesParqueo.dart';
 
-class ListaMensajeros extends StatefulWidget {
-  ListaMensajeros({required this.title});
-  final String title;
+class ListaParqueos extends StatefulWidget {
+  ListaParqueos();
+  //final String title;
 
   @override
-  _ListaMensajerosState createState() => _ListaMensajerosState();
+  _ListaParqueosState createState() => _ListaParqueosState();
 }
 
-class _ListaMensajerosState extends State<ListaMensajeros> {
+class _ListaParqueosState extends State<ListaParqueos> {
   @override
   void initState() {
     super.initState();

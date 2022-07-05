@@ -134,37 +134,6 @@ class _AgregarParqueoState extends State<AgregarParqueo> {
                   }).toList(),
                 ),
               ),
-
-              /* Container(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: TextField(
-                  cursorColor: Colors.red.shade400,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
-                  controller: controltipo,
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.account_box),
-                      labelText: 'Tipo del vehiculo'),
-                  onChanged: (value) {},
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30.0),
-                child: TextField(
-                  cursorColor: Colors.red.shade400,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                  ),
-                  controller: controlmarca,
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.account_box),
-                      labelText: 'Marca del vehiculo'),
-                  onChanged: (value) {},
-                ),
-              ),*/
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0),
                 child: MaterialButton(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controller/firestore.dart';
 import 'pages/Operario/listaParqueosActivos.dart';
+import 'pages/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Programacion Movil',
       theme: ThemeData.light(),
-      home: //ListaMensajeros2(title: 'I'),
-          ListaMensajeros(
-              title:
-                  'Proyecto Mensajeros'), //ListaMensajeros() //ListaMensajeros(title: 'Proyecto Mensajeros'),*/
+      home: Login(),
     );
   }
 }

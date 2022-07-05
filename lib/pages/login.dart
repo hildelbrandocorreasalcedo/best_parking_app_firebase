@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:best_parking_app_firebase/pages/Operario/inicioOperador.dart';
+import 'package:best_parking_app_firebase/pages/Operario/listaParqueosActivos.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -29,28 +33,12 @@ class _LoginState extends State<Login> {
   void ingreso() {
     Peticioneslogin().ingresarEmail(usuario.text, clave.text).then((user) {
       setState(() {
-        print(user);
+        print("adsa" + user);
         if (user == '1' || user == '2') {
           usuarior = 'Correo No Existe o Contraseña Invalida';
         } else {
           usuarior = user.user.email;
         }
-      });
-    }); // print(resul);
-    // print('OBTENER');
-  }
-
-  void ingoogle() {
-    Peticioneslogin().ingresarGoogle().then((user) {
-      setState(() {
-        print(user);
-        usuarior = user.user!.displayName;
-
-        /*Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    ListaMensajeros(title: 'Logueado')));*/
       });
     }); // print(resul);
     // print('OBTENER');
@@ -65,6 +53,16 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Flexible(
+                child: CircleAvatar(
+                  child: Image.asset(
+                    'img/icono.png',
+                    //scale: 1.5,
+                  ),
+                  radius: 80.0,
+                  backgroundColor: Colors.blue.shade400,
+                ),
+              ),
               TextField(
                 controller: usuario,
                 decoration: InputDecoration(hintText: "Digite el Usuario"),
@@ -79,42 +77,6 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //Ingresar
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.login),
-                    onPressed: () {
-                      ingreso();
-                    },
-                  ),
-                  //Registrarse
-                  IconButton(
-                    icon: Icon(Icons.app_registration),
-                    onPressed: () {
-                      registro();
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    onPrimary: Colors.black,
-                    minimumSize: Size(double.infinity, 50),
-                  ),
-                  onPressed: () {
-                    ingoogle();
-                  },
-                  icon: FaIcon(
-                    FontAwesomeIcons.google,
-                    color: Colors.red,
-                  ),
-                  label: Text('Ingresar Con Google')),
               SizedBox(
                 height: 20,
               ),
@@ -124,16 +86,19 @@ class _LoginState extends State<Login> {
                     onPrimary: Colors.white,
                     minimumSize: Size(double.infinity, 50),
                   ),
-                  onPressed: () {},
-                  icon: FaIcon(
-                    FontAwesomeIcons.facebook,
-                    color: Colors.white,
-                  ),
-                  label: Text('Ingresar Con Facebook')),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                inicioOperador()));
+                    //ingreso();
+                  },
+                  icon: Icon(Icons.login),
+                  label: Text('Ingresar')),
               SizedBox(
                 height: 20,
               ),
-              Text('Usuario Registrado: $usuarior')
             ],
           ),
         ),
