@@ -1,7 +1,7 @@
 import 'package:best_parking_app_firebase/pages/Operario/ingresarVehiculo.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-
+import 'package:best_parking_app_firebase/pages/Operario/salidavehiculo.dart';
 import '../login.dart';
 
 class inicioOperador extends StatefulWidget {
@@ -16,7 +16,7 @@ class _inicioOperadorState extends State<inicioOperador> {
 
   final paginas = [
     AgregarParqueo(),
-    //salidaVehiculo(),
+    ListaMensajeros(),
     //ListaParqueos(),
     //ConsultaFinacieraDia(),
   ];

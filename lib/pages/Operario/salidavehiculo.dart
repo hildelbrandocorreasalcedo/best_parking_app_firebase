@@ -1,10 +1,11 @@
+import 'package:best_parking_app_firebase/modelos/parqueo.dart';
 import 'package:flutter/material.dart';
+import 'package:best_parking_app_firebase/pages/Operario/retirarVehiculo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../peticiones/peticionesParqueo.dart';
 
 class ListaMensajeros extends StatefulWidget {
-  ListaMensajeros({required this.title});
-  final String title;
+  ListaMensajeros();
 
   @override
   _ListaMensajerosState createState() => _ListaMensajerosState();
@@ -68,14 +69,8 @@ Widget getInfo(BuildContext context) {
           if (snapshot.hasError) return Text('Error: ${snapshot.error}');
           // print(snapshot.data);
           return snapshot.data != null
-              ? Vistamensajeros(mensajeros: snapshot.data!.docs)
-              : Text('Sin Datos');
-
-        /*
-             Text(
-              snapshot.data != null ?'ID: ${snapshot.data['id']}\nTitle: ${snapshot.data['title']}' : 'Vuelve a intentar', 
-              style: TextStyle(color: Colors.black, fontSize: 20),);
-            */
+              ? VistaParqueos(parqueos: snapshot.data!.docs)
+              : Text('No hat Datos');
 
         default:
           return Text('Presiona el boton para recargar');
@@ -84,42 +79,85 @@ Widget getInfo(BuildContext context) {
   );
 }
 
-class Vistamensajeros extends StatelessWidget {
-  final List mensajeros;
+class VistaParqueos extends StatelessWidget {
+  //final List<Parqueo> parqueos;
+  //const VistaParqueos({Key? key, required this.parqueos}) : super(key: key);
 
-  const Vistamensajeros({required this.mensajeros});
+  final List<dynamic> parqueos;
 
+  const VistaParqueos({required this.parqueos});
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: mensajeros.length == 0 ? 0 : mensajeros.length,
+        itemCount: parqueos.length == 0 ? 0 : parqueos.length,
         itemBuilder: (context, posicion) {
-          print(mensajeros[posicion].id);
-          return ListTile(
-            onTap: () {
-              /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => ModificarMensajero(
-                          perfil: mensajeros,
-                          pos: posicion,
-                          iddoc: mensajeros[posicion].id)));*/
-            },
-            leading: Container(
-              padding: EdgeInsets.all(5.0),
-              width: 50,
-              height: 50,
-              child: Image.network(mensajeros[posicion]['fotocliente']),
-            ),
-            title: Text(mensajeros[posicion]['nombrecliente']),
-            subtitle: Text(mensajeros[posicion]['apellidocliente']),
-            trailing: Container(
-              width: 80,
-              height: 40,
-              color: Colors.yellowAccent,
-              padding: EdgeInsets.all(10),
-              alignment: Alignment.center,
-              child: Text(mensajeros[posicion]['telefonocliente']),
+          print(parqueos[posicion].id);
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(width: 2, color: Colors.cyan)
+                  /*boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(2.0, 2.0),
+                      blurRadius: 8.0,
+                    )
+                  ]*/
+                  ),
+              height: 50.0,
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => RetirarVehiculo(
+                                perfil: parqueos,
+                                idperfil: posicion,
+                              )));
+                },
+                leading: Container(
+                  padding: EdgeInsets.all(5),
+                  width: 50,
+                  height: 50,
+                  child: Icon(parqueos[posicion]['tipo'] == "CARRO"
+                      ? Icons.car_repair
+                      : Icons.motorcycle_outlined),
+                ),
+                title: Text(
+                  parqueos[posicion]['placa'],
+                  //textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      fontFamily: 'Prompt'),
+                ),
+                subtitle: Text(
+                  parqueos[posicion]['hora_entrada.substring(11, 16)'],
+                  //textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      fontFamily: 'Prompt'),
+                ),
+                trailing: Container(
+                  width: 20,
+                  /*color: Colors.yellow,*/
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor:
+                            parqueos[posicion]['estado'] == 'ACTIVO'
+                                ? Colors.green
+                                : Colors.red,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           );
         });
