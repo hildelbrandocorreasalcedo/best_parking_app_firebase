@@ -1,3 +1,4 @@
+import 'package:best_parking_app_firebase/pages/Operario/detallesParqueo.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../peticiones/peticionesParqueo.dart';
@@ -79,14 +80,13 @@ class VistaParqueos extends StatelessWidget {
           print(parqueos[posicion].id);
           return ListTile(
               onTap: () {
-                /*Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => ModificarMensajero(
-                          perfil: mensajeros,
-                          pos: posicion,
-                          iddoc: mensajeros[posicion].id)));
-            */
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => detallesParqueo(
+                            perfil: parqueos,
+                            pos: posicion,
+                            iddoc: parqueos[posicion].id)));
               },
               leading: Container(
                 padding: EdgeInsets.all(5.0),

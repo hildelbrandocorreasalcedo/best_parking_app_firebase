@@ -70,10 +70,10 @@ class VistaParqueos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //if (parqueos['estado'] == 'ACTIVO') {}
     return ListView.builder(
         itemCount: parqueos.length == 0 ? 0 : parqueos.length,
         itemBuilder: (context, posicion) {
-          print(parqueos[posicion].id);
           return ListTile(
             onTap: () {
               Navigator.push(
@@ -124,6 +124,7 @@ class VistaParqueos extends StatelessWidget {
               ),
             ),
           );
+          //if
         });
   }
 }

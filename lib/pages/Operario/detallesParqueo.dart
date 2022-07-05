@@ -8,21 +8,21 @@ import '../../peticiones/peticionesParqueo.dart';
 
 import 'salidavehiculo.dart';
 
-class RetirarVehiculo extends StatefulWidget {
+class detallesParqueo extends StatefulWidget {
   final iddoc;
   final pos;
   final List perfil;
-  RetirarVehiculo({required this.perfil, this.pos, this.iddoc});
+  detallesParqueo({required this.perfil, this.pos, this.iddoc});
 
   /*final idperfil;
   final List<dynamic> perfil;
   RetirarVehiculo({required this.perfil, this.idperfil});*/
 
   @override
-  _RetirarVehiculoState createState() => _RetirarVehiculoState();
+  _detallesParqueoState createState() => _detallesParqueoState();
 }
 
-class _RetirarVehiculoState extends State<RetirarVehiculo> {
+class _detallesParqueoState extends State<detallesParqueo> {
   TextEditingController controltipo = TextEditingController();
   TextEditingController controlplaca = TextEditingController();
   TextEditingController controlmarca = TextEditingController();
@@ -146,7 +146,7 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
             child: Text(
-              "Retirar Vehiculo",
+              "Detalles del Parqueo",
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -154,91 +154,6 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
                 fontSize: 30,
                 fontFamily: 'Prompt',
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              36,
-              10,
-              36,
-              0,
-            ),
-            child: RaisedButton(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
-                child: Text(
-                  'RETIRAR VEHICULO',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: 'Prompt',
-                  ),
-                ),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 10.0,
-              color: Colors.blue.shade400,
-              onPressed: () {
-                var nowTime = DateTime.now();
-                controlhora_salida.text = '$nowTime';
-                horasalida = nowTime;
-                horaentrada = DateTime.parse(controlhora_entrada.text);
-
-                controlnumerohoras.text =
-                    calcularDiferenciaHoras(horaentrada, horasalida).toString();
-
-                double tarifa = double.parse(controlvalorhora.text);
-
-                controltotalpagar.text =
-                    (tarifa * double.parse(controlnumerohoras.text)).toString();
-
-                controlestado.text = "INACTIVO";
-
-                var cliente = <String, dynamic>{
-                  'tipo': controltipo.text,
-                  'placa': controlplaca.text,
-                  'marca': controlmarca.text,
-                  'hora_entrada': controlhora_entrada.text,
-                  'hora_salida': controlhora_salida.text,
-                  'estado': controlestado.text,
-                  'numerohoras': controlnumerohoras.text,
-                  'valorhora': controlhora_salida.text,
-                  'totalpagar': controltotalpagar.text,
-                };
-
-                Peticiones.actualizarcliente(
-                    widget.perfil[widget.pos].id, cliente);
-
-                Navigator.of(context).pop();
-
-                showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          content: Text(
-                            controlplaca.text +
-                                "\n\n\nNumero de horas:\n" +
-                                controlnumerohoras.text +
-                                "\n\n Valor por hora:\n" +
-                                controlvalorhora.text +
-                                "\n\n\n Total a pagar:\n" +
-                                controltotalpagar.text,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontFamily: 'Prompt',
-                            ),
-                          ),
-                        ));
-                /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => salidaVehiculo()));*/
-                //super.initState();
-              },
             ),
           ),
           Container(
@@ -401,63 +316,5 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
         ],
       ),
     );
-  }
-
-  int calcularDiferenciaHoras(DateTime? hora_entrada, DateTime? hora_salida) {
-    int HorasDiferencia = 0;
-    int MinutosDiferencia = 0;
-
-    if (hora_entrada != null && hora_salida != null) {
-      /*DateTime RestaTiempo = hora_entrada
-          .add(Duration(hours: hora_salida.hour, minutes: hora_salida.minute));*/
-      var horaTotal = new DateTime(hora_salida.hour - hora_entrada.hour);
-      Duration _RestaTiempo = horasalida!.difference(hora_entrada);
-      HorasDiferencia = _RestaTiempo.inHours;
-      MinutosDiferencia = _RestaTiempo.inMinutes;
-
-      if (HorasDiferencia < 1) {
-        HorasDiferencia = 1;
-      } else {
-        if (HorasDiferencia >= 1) {
-          if (MinutosDiferencia >= 30) {
-            HorasDiferencia = HorasDiferencia + 1;
-          }
-        }
-      }
-    }
-    return HorasDiferencia;
-  }
-
-  double calcularValorPagar(
-      DateTime? hora_entrada, DateTime? hora_salida, double tarifa) {
-    print(hora_entrada);
-    print(hora_salida);
-
-    double valorPagar = 0;
-
-    if (hora_entrada != null && hora_salida != null) {
-      DateTime RestaTiempo = hora_entrada
-          .add(Duration(hours: hora_salida.hour, minutes: hora_salida.minute));
-      int HorasDiferencia = RestaTiempo.hour;
-      int MinutosDiferencia = RestaTiempo.minute;
-
-      if (HorasDiferencia < 1) {
-        HorasDiferencia = 1;
-        valorPagar = HorasDiferencia * tarifa;
-      } else {
-        if (HorasDiferencia >= 1) {
-          if (MinutosDiferencia >= 30) {
-            HorasDiferencia = HorasDiferencia + 1;
-            valorPagar = HorasDiferencia * tarifa;
-          } else {
-            if (MinutosDiferencia < 30) {
-              tarifa = tarifa * 0.5;
-              valorPagar = HorasDiferencia * tarifa;
-            }
-          }
-        }
-      }
-    }
-    return valorPagar;
   }
 }
