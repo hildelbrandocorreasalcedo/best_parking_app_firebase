@@ -109,17 +109,17 @@ class Vistamensajeros extends StatelessWidget {
               padding: EdgeInsets.all(5.0),
               width: 50,
               height: 50,
-              child: Image.network(mensajeros[posicion]['fotocliente']),
+              //child: Image.network(mensajeros[posicion]['fotocliente']),
             ),
-            title: Text(mensajeros[posicion]['nombrecliente']),
-            subtitle: Text(mensajeros[posicion]['apellidocliente']),
+            title: Text(mensajeros[posicion]['placa']),
+            subtitle: Text(mensajeros[posicion]['tipo']),
             trailing: Container(
               width: 80,
               height: 40,
               color: Colors.yellowAccent,
               padding: EdgeInsets.all(10),
               alignment: Alignment.center,
-              child: Text(mensajeros[posicion]['telefonocliente']),
+              child: Text(mensajeros[posicion]['numerohoras']),
             ),
           );
         });
