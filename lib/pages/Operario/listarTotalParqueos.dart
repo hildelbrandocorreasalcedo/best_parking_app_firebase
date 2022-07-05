@@ -1,17 +1,15 @@
-import 'package:best_parking_app_firebase/pages/Operario/retirarVehiculo.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../peticiones/peticionesParqueo.dart';
 
-class ListaParqueosActivos extends StatefulWidget {
-  ListaParqueosActivos();
-  //final String title;
+class ListarTotalParqueos extends StatefulWidget {
+  ListarTotalParqueos();
 
   @override
-  _ListaParqueosActivosState createState() => _ListaParqueosActivosState();
+  _ListarTotalParqueosState createState() => _ListarTotalParqueosState();
 }
 
-class _ListaParqueosActivosState extends State<ListaParqueosActivos> {
+class _ListarTotalParqueosState extends State<ListarTotalParqueos> {
   @override
   void initState() {
     super.initState();
@@ -21,7 +19,6 @@ class _ListaParqueosActivosState extends State<ListaParqueosActivos> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: getInfo(context),
-
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
@@ -81,55 +78,55 @@ class VistaParqueos extends StatelessWidget {
         itemBuilder: (context, posicion) {
           print(parqueos[posicion].id);
           return ListTile(
-            onTap: () {
-              Navigator.push(
+              onTap: () {
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => RetirarVehiculo(
-                          perfil: parqueos,
+                      builder: (BuildContext context) => ModificarMensajero(
+                          perfil: mensajeros,
                           pos: posicion,
-                          iddoc: parqueos[posicion].id)));
-            },
-            leading: Container(
-              padding: EdgeInsets.all(5.0),
-              width: 50,
-              height: 50,
-              child: Icon(parqueos[posicion]['tipo'] == "CARRO"
-                  ? Icons.car_repair
-                  : Icons.motorcycle_outlined),
-            ),
-            title: Text(
-              parqueos[posicion]['placa'],
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  fontFamily: 'Prompt'),
-            ),
-            subtitle: Text(
-              parqueos[posicion]['tipo'],
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 10,
-                  fontFamily: 'Prompt'),
-            ),
-            trailing: Container(
-              width: 20,
-              /*color: Colors.yellow,*/
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: parqueos[posicion]['estado'] == 'ACTIVO'
-                        ? Colors.green
-                        : Colors.red,
-                  ),
-                ],
+                          iddoc: mensajeros[posicion].id)));
+            */
+              },
+              leading: Container(
+                padding: EdgeInsets.all(5.0),
+                width: 50,
+                height: 50,
+                child: Icon(parqueos[posicion]['tipo'] == "CARRO"
+                    ? Icons.car_repair
+                    : Icons.motorcycle_outlined),
               ),
-            ),
-          );
+              title: Text(
+                parqueos[posicion]['placa'],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    fontFamily: 'Prompt'),
+              ),
+              subtitle: Text(
+                parqueos[posicion]['tipo'],
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                    fontFamily: 'Prompt'),
+              ),
+              trailing: Container(
+                width: 20,
+                /*color: Colors.yellow,*/
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: parqueos[posicion]['estado'] == 'ACTIVO'
+                          ? Colors.green
+                          : Colors.red,
+                    ),
+                  ],
+                ),
+              ));
         });
   }
 }

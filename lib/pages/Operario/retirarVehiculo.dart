@@ -9,9 +9,14 @@ import '../../peticiones/peticionesParqueo.dart';
 import 'salidavehiculo.dart';
 
 class RetirarVehiculo extends StatefulWidget {
-  final idperfil;
+  final iddoc;
+  final pos;
+  final List perfil;
+  RetirarVehiculo({required this.perfil, this.pos, this.iddoc});
+
+  /*final idperfil;
   final List<dynamic> perfil;
-  RetirarVehiculo({required this.perfil, this.idperfil});
+  RetirarVehiculo({required this.perfil, this.idperfil});*/
 
   @override
   _RetirarVehiculoState createState() => _RetirarVehiculoState();
@@ -34,25 +39,25 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
   @override
   void initState() {
     controltipo =
-        TextEditingController(text: widget.perfil[widget.idperfil].tipo);
+        TextEditingController(text: widget.perfil[widget.pos]['tipo']);
     controlplaca =
-        TextEditingController(text: widget.perfil[widget.idperfil].placa);
+        TextEditingController(text: widget.perfil[widget.pos]['placa']);
     controlplaca =
-        TextEditingController(text: widget.perfil[widget.idperfil].placa);
+        TextEditingController(text: widget.perfil[widget.pos]['placa']);
     controlmarca =
-        TextEditingController(text: widget.perfil[widget.idperfil].marca);
-    controlhora_entrada = TextEditingController(
-        text: widget.perfil[widget.idperfil].hora_entrada);
+        TextEditingController(text: widget.perfil[widget.pos]['marca']);
+    controlhora_entrada =
+        TextEditingController(text: widget.perfil[widget.pos]['hora_entrada']);
     controlhora_salida =
-        TextEditingController(text: widget.perfil[widget.idperfil].hora_salida);
+        TextEditingController(text: widget.perfil[widget.pos]['hora_salida']);
     controlestado =
-        TextEditingController(text: widget.perfil[widget.idperfil].estado);
+        TextEditingController(text: widget.perfil[widget.pos]['estado']);
     controlnumerohoras =
-        TextEditingController(text: widget.perfil[widget.idperfil].numerohoras);
+        TextEditingController(text: widget.perfil[widget.pos]['numerohoras']);
     controlvalorhora =
-        TextEditingController(text: widget.perfil[widget.idperfil].valorhora);
+        TextEditingController(text: widget.perfil[widget.pos]['valorhora']);
     controltotalpagar =
-        TextEditingController(text: widget.perfil[widget.idperfil].totalpagar);
+        TextEditingController(text: widget.perfil[widget.pos]['totalpagar']);
     // TODO: implement initState
     super.initState();
   }
@@ -361,7 +366,7 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
                 };
 
                 Peticiones.actualizarcliente(
-                    widget.perfil[widget.idperfil].id, cliente);
+                    widget.perfil[widget.pos].id, cliente);
 
                 Navigator.of(context).pop();
 

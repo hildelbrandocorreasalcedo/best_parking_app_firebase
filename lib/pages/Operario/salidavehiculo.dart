@@ -109,13 +109,13 @@ class VistaParqueos extends StatelessWidget {
               height: 50.0,
               child: ListTile(
                 onTap: () {
-                  Navigator.push(
+                  /*Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (BuildContext context) => RetirarVehiculo(
                                 perfil: parqueos,
                                 idperfil: posicion,
-                              )));
+                              )));*/
                 },
                 leading: Container(
                   padding: EdgeInsets.all(5),
@@ -135,7 +135,7 @@ class VistaParqueos extends StatelessWidget {
                       fontFamily: 'Prompt'),
                 ),
                 subtitle: Text(
-                  parqueos[posicion]['hora_entrada.substring(11, 16)'],
+                  parqueos[posicion]['hora_entrada'].substring(11, 16),
                   //textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(

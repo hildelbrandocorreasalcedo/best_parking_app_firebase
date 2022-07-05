@@ -4,6 +4,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:best_parking_app_firebase/pages/Operario/salidavehiculo.dart';
 import '../login.dart';
 import 'consultarFinanzas.dart';
+import 'listaParqueosActivos.dart';
+import 'listarTotalParqueos.dart';
 
 class inicioOperador extends StatefulWidget {
   inicioOperador({Key? key}) : super(key: key);
@@ -17,8 +19,8 @@ class _inicioOperadorState extends State<inicioOperador> {
 
   final paginas = [
     AgregarParqueo(),
-    ListaMensajeros(),
-    //ListaParqueos(),
+    ListaParqueosActivos(),
+    ListarTotalParqueos(),
     ConsultaFinacieraDia(),
   ];
 
