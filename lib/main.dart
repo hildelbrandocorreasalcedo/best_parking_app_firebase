@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +8,15 @@ import 'pages/Operario/listaParqueosActivos.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "95146943460452101354d9a0f5fa25e89d21a0a2", // Your apiKey
+      appId: "10c564e51e8037945c0e2c", // Your appId
+      messagingSenderId: "185304527173", // Your messagingSenderId
+      projectId: "best-parking-app", // Your projectId
+    ),
+  );
   Get.put(Peticiones2());
   runApp(MyApp());
 }
