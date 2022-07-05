@@ -5,13 +5,13 @@ class Peticiones {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   static Stream<QuerySnapshot> readItems() {
-    CollectionReference listado = _db.collection('clientes');
+    CollectionReference listado = _db.collection('parqueo');
 
     return listado.snapshots();
   }
 
-  static Future<void> crearcliente(Map<String, dynamic> cliente) async {
-    await _db.collection('clientes').doc().set(cliente).catchError((e) {
+  static Future<void> crearcliente(Map<String, dynamic> parqueo) async {
+    await _db.collection('parqueo').doc().set(parqueo).catchError((e) {
       print(e);
     });
     //return true;
@@ -19,15 +19,15 @@ class Peticiones {
 
 //'MWPy56bgx9wYBzul88rR'
   static Future<void> actualizarcliente(
-      String id, Map<String, dynamic> cliente) async {
-    await _db.collection('clientes').doc(id).update(cliente).catchError((e) {
+      String id, Map<String, dynamic> parqueo) async {
+    await _db.collection('parqueo').doc(id).update(parqueo).catchError((e) {
       print(e);
     });
     //return true;
   }
 
   static Future<void> eliminarcliente(String id) async {
-    await _db.collection('clientes').doc(id).delete().catchError((e) {
+    await _db.collection('parqueo').doc(id).delete().catchError((e) {
       print(e);
     });
     //return true;
