@@ -156,6 +156,91 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              36,
+              10,
+              36,
+              0,
+            ),
+            child: RaisedButton(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
+                child: Text(
+                  'RETIRAR VEHICULO',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontFamily: 'Prompt',
+                  ),
+                ),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              elevation: 10.0,
+              color: Colors.blue.shade400,
+              onPressed: () {
+                var nowTime = DateTime.now();
+                controlhora_salida.text = '$nowTime';
+                horasalida = nowTime;
+                horaentrada = DateTime.parse(controlhora_entrada.text);
+
+                controlnumerohoras.text =
+                    calcularDiferenciaHoras(horaentrada, horasalida).toString();
+
+                double tarifa = double.parse(controlvalorhora.text);
+
+                controltotalpagar.text =
+                    (tarifa * double.parse(controlnumerohoras.text)).toString();
+
+                controlestado.text = "INACTIVO";
+
+                var cliente = <String, dynamic>{
+                  'tipo': controltipo.text,
+                  'placa': controlplaca.text,
+                  'marca': controlmarca.text,
+                  'hora_entrada': controlhora_entrada.text,
+                  'hora_salida': controlhora_salida.text,
+                  'estado': controlestado.text,
+                  'numerohoras': controlhora_entrada.text,
+                  'valorhora': controlhora_salida.text,
+                  'totalpagar': controltotalpagar.text,
+                };
+
+                Peticiones.actualizarcliente(
+                    widget.perfil[widget.pos].id, cliente);
+
+                Navigator.of(context).pop();
+
+                showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                          content: Text(
+                            controlplaca.text +
+                                "\n\n\nNumero de horas:\n" +
+                                controlnumerohoras.text +
+                                "\n\n Valor por hora:\n" +
+                                controlvalorhora.text +
+                                "\n\n\n Total a pagar:\n" +
+                                controltotalpagar.text,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontFamily: 'Prompt',
+                            ),
+                          ),
+                        ));
+                /*Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => salidaVehiculo()));*/
+                //super.initState();
+              },
+            ),
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(35, 10, 35, 0),
             height: 690,
@@ -313,91 +398,6 @@ class _RetirarVehiculoState extends State<RetirarVehiculo> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              36,
-              10,
-              36,
-              0,
-            ),
-            child: RaisedButton(
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
-                child: Text(
-                  'RETIRAR VEHICULO',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontFamily: 'Prompt',
-                  ),
-                ),
-              ),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              elevation: 10.0,
-              color: Colors.blue.shade400,
-              onPressed: () {
-                var nowTime = DateTime.now();
-                controlhora_salida.text = '$nowTime';
-                horasalida = nowTime;
-                horaentrada = DateTime.parse(controlhora_entrada.text);
-
-                controlnumerohoras.text =
-                    calcularDiferenciaHoras(horaentrada, horasalida).toString();
-
-                double tarifa = double.parse(controlvalorhora.text);
-
-                controltotalpagar.text =
-                    (tarifa * double.parse(controlnumerohoras.text)).toString();
-
-                controlestado.text = "INACTIVO";
-
-                var cliente = <String, dynamic>{
-                  'controltipo': controltipo.text,
-                  'controlplaca': controlplaca.text,
-                  'controlmarca': controlmarca.text,
-                  'controlhora_entrada': controlhora_entrada.text,
-                  'controlhora_salida': controlhora_salida.text,
-                  'controlestado': controlestado.text,
-                  'controlnumerohoras': controlhora_entrada.text,
-                  'controlvalorhora': controlhora_salida.text,
-                  'controltotalpagar': controlestado.text,
-                };
-
-                Peticiones.actualizarcliente(
-                    widget.perfil[widget.pos].id, cliente);
-
-                Navigator.of(context).pop();
-
-                showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                          content: Text(
-                            controlplaca.text +
-                                "\n\n\nNumero de horas:\n" +
-                                controlnumerohoras.text +
-                                "\n\n Valor por hora:\n" +
-                                controlvalorhora.text +
-                                "\n\n\n Total a pagar:\n" +
-                                controltotalpagar.text,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontFamily: 'Prompt',
-                            ),
-                          ),
-                        ));
-                /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => salidaVehiculo()));*/
-                //super.initState();
-              },
-            ),
-          )
         ],
       ),
     );

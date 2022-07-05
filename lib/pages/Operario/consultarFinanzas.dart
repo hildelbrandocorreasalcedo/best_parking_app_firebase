@@ -1,6 +1,10 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../modelos/parqueo.dart';
+import '../../peticiones/peticionesParqueo.dart';
 import 'listaParqueosActivos.dart';
 
 class ConsultaFinacieraDia extends StatefulWidget {
@@ -12,31 +16,9 @@ class ConsultaFinacieraDia extends StatefulWidget {
 
 class _ConsultaFinacieraDiaState extends State<ConsultaFinacieraDia> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Listados Mensajeros'),
-        actions: [
-          IconButton(
-              tooltip: 'Adicionar Mensajero',
-              icon: Icon(Icons.add),
-              onPressed: () {
-                /*
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => AgregarMensajero()));*/
-              })
-        ],
-      ),
-
-      body: getInfo(context),
-
+      body: getInfo1(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
@@ -50,6 +32,34 @@ class _ConsultaFinacieraDiaState extends State<ConsultaFinacieraDia> {
   }
 }
 
+Widget getInfo1(BuildContext context) {
+  return StreamBuilder(
+    stream: Peticiones.readItems(),
+    /*FirebaseFirestore.instance
+        .collection('clientes')
+        .snapshots(),*/ //En esta línea colocamos el el objeto Future que estará esperando una respuesta
+    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+      print(snapshot.connectionState);
+      switch (snapshot.connectionState) {
+
+        //En este case estamos a la espera de la respuesta, mientras tanto mostraremos el loader
+        case ConnectionState.waiting:
+          return Center(child: CircularProgressIndicator());
+
+        case ConnectionState.active:
+          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+          // print(snapshot.data);
+          return snapshot.data != null
+              ? vistaFinacieraDia(parqueos: snapshot.data!.docs)
+              : Text('Sin Datos');
+
+        default:
+          return Text('Presiona el boton para recargar');
+      }
+    },
+  );
+}
+
 class vistaFinacieraDia extends StatelessWidget {
   TextEditingController controlhora_salida = TextEditingController();
   TextEditingController controltotalpagar = TextEditingController();
@@ -57,7 +67,7 @@ class vistaFinacieraDia extends StatelessWidget {
   final ValorPagar = 0;
   late DateTime? horasalida;
   var nowTime = DateTime.now();
-  final List<Parqueo> parqueos;
+  final List parqueos;
   vistaFinacieraDia({Key? key, required this.parqueos}) : super(key: key);
 
   @override
@@ -100,7 +110,8 @@ class vistaFinacieraDia extends StatelessWidget {
                         color: Colors.blue[200],
                         child: Center(
                           child: Text(
-                            controlhora_salida.text = '$nowTime',
+                            controlhora_salida.text =
+                                '$nowTime'.substring(0, 10),
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -128,7 +139,7 @@ class vistaFinacieraDia extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15,
+                                  fontSize: 25,
                                   fontFamily: 'Prompt',
                                 ),
                               ),
@@ -150,7 +161,8 @@ class vistaFinacieraDia extends StatelessWidget {
   double calcularSumaTotalDia() {
     double sumaTotal = 0;
     for (var parqueo in parqueos) {
-      var totalpagar = double.parse(parqueo.totalpagar);
+      var totalpagar = double.parse(parqueo['totalpagar']);
+
       sumaTotal = sumaTotal + totalpagar;
     }
     return sumaTotal;

@@ -56,12 +56,6 @@ Widget getInfo(BuildContext context) {
               ? VistaParqueos(parqueos: snapshot.data!.docs)
               : Text('Sin Datos');
 
-        /*
-             Text(
-              snapshot.data != null ?'ID: ${snapshot.data['id']}\nTitle: ${snapshot.data['title']}' : 'Vuelve a intentar', 
-              style: TextStyle(color: Colors.black, fontSize: 20),);
-            */
-
         default:
           return Text('Presiona el boton para recargar');
       }
