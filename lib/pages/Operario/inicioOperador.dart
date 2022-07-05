@@ -2,6 +2,8 @@ import 'package:best_parking_app_firebase/pages/Operario/ingresarVehiculo.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
+import '../login.dart';
+
 class inicioOperador extends StatefulWidget {
   inicioOperador({Key? key}) : super(key: key);
   @override
@@ -108,8 +110,7 @@ class _inicioOperadorState extends State<inicioOperador> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      LoginPage()));
+                                  builder: (BuildContext context) => Login()));
                         });
                       },
                     ),
